@@ -4,6 +4,10 @@ import random
 import git
 import traceback
 import urllib.request, urllib.error
+import logging
+
+repoDir= 'repos/input/'
+logging.basicConfig(level=logging.DEBUG)
 
 def random_value():
     return str(int(random.uniform(1, 50000)))
@@ -23,8 +27,8 @@ def getRepoName():
     return reponames
 
 def cloneRepo(reponame):
-    repoDir = 'repos/input/'
     try: 
         git.Git().clone("https://github.com/" + reponame, repoDir+reponame)
     except:
+        logging.error(reponame + " cannot be cloned")
         traceback.print_exc()
