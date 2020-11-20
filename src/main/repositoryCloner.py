@@ -23,7 +23,7 @@ def getRepoName():
     return reponames
 
 def cloneRepo(reponame):
-    repoDir = 'src/repos/input/'
+    repoDir = 'repos/input/'
     try: 
         git.Git().clone("https://github.com/" + reponame, repoDir+reponame)
     except:
