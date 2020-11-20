@@ -37,7 +37,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="/Users/yutarokashiwa/PycharmProjects/MiningTools/venv"
+VIRTUAL_ENV="/Users/shimizu/MavenGetter/venv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

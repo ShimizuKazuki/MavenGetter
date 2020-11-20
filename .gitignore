@@ -2,3 +2,6 @@
 .vscode
 src/main/__pycache__/
 repos/input/
+venv/bin/
+venv/*
+venv/

@@ -1,4 +1,4 @@
-#!/Users/yutarokashiwa/PycharmProjects/MiningTools/venv/bin/python
+#!/Users/shimizu/venv/bin/python
 
 import sys
 import json

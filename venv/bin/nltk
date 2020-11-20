@@ -1,4 +1,4 @@
-#!/Users/yutarokashiwa/PycharmProjects/MiningTools/venv/bin/python
+#!/Users/shimizu/venv/bin/python
 # EASY-INSTALL-ENTRY-SCRIPT: 'nltk==3.5','console_scripts','nltk'
 import re
 import sys

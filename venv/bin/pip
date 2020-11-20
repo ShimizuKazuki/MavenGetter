@@ -1,4 +1,4 @@
-#!/Users/yutarokashiwa/PycharmProjects/MiningTools/venv/bin/python
+#!/Users/shimizu/MavenGetter/venv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys
