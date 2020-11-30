@@ -15,27 +15,39 @@ import functions
 
 logging.basicConfig(level=logging.DEBUG)
 
-def main():
-    try:
-        reponames = cloner.getRepoName()
+def run(spamwriter):
+    since = "73199";
+    while(True):
+        reponames_since = cloner.getRepoName(since)
+        since = reponames_since[1]
+        print(since)
         g = Github()
-        for reponame in reponames:
+        for reponame in reponames_since[0]:
+            print(reponame)
             out = []
             cloner.cloneRepo(reponame)
-            # if not os.path.exists(cloner.repoDir + reponame + "/pom.xml"):
-            #     logging.info(reponame + " is not Maven Project")
-            #     shutil.rmtree(cloner.repoDir + reponame.split('/')[0])
-                #continue; #For Debug
+            if not os.path.exists(cloner.repoDir + reponame + "/pom.xml"):
+                logging.info(reponame + " is not Maven Project")
+                shutil.rmtree(cloner.repoDir + reponame.split('/')[0])
+                continue
             repo = g.get_repo(reponame)
+            out.append("https://github.com/" + reponame + " ")
             logging.info(reponame + " #commit: " + functions.get_commit_count(repo))
             out.append(functions.get_commit_count(repo))
             logging.info(reponame + " #loc: " + functions.get_loc(reponame))
             out.append(functions.get_loc(reponame))
             logging.info(reponame + " #star: " + functions.get_star_count(repo))
-            
-            break
-    except UnknownObjectException:
-        logging.error(reponame + " not found:404")
+            out.append(functions.get_star_count(repo))
+            spamwriter.writerow(out)
+            shutil.rmtree(cloner.repoDir + reponame.split('/')[0])
+
+def main():
+    try:
+        with open(f'outputs/projects.csv', 'a') as f:
+            spamwriter = csv.writer(f, delimiter=',', quotechar='|')
+            run(spamwriter)
+    except Exception as e:
+        logging.error(e)
         
 
 if __name__ == '__main__':

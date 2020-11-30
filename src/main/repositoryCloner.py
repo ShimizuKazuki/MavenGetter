@@ -5,30 +5,31 @@ import git
 import traceback
 import urllib.request, urllib.error
 import logging
+import subprocess
 
-repoDir= 'repos/input/'
+repoDir= 'repos/'
 logging.basicConfig(level=logging.DEBUG)
 
-def random_value():
-    return str(int(random.uniform(1, 50000)))
 
-def getRepoName():
+def getRepoName(since):
     reponames = []
-    #TODO:Use ID to get repository
-    with urllib.request.urlopen("https://api.github.com/repositories?since=" + random_value()) as response:
+    with urllib.request.urlopen("https://api.github.com/repositories?since=" + since) as response:
         with tempfile.NamedTemporaryFile(delete=True) as temp_file:
             shutil.copyfileobj(response, temp_file)
             with open(temp_file.name) as f:
                 content = f.read()
+                id = [s for s in content.split(',') if '{"id"' in s]
+                last_id = id[-1].split(":")[1].strip('"')
+                print(last_id)
                 full_names = [s for s in content.split(',') if "full_name" in s]
                 for full_name in full_names:
                     reponame = full_name.split(":")[1].strip('"')
                     reponames.append(reponame)
-    return reponames
+    return reponames, last_id
 
 def cloneRepo(reponame):
     try: 
-        git.Git().clone("https://github.com/" + reponame, repoDir+reponame)
+        a = subprocess.run(["sh", "./other/clone.sh", reponame], encoding='utf-8', stdout=subprocess.PIPE)
     except:
         logging.error(reponame + " cannot be cloned")
         traceback.print_exc()

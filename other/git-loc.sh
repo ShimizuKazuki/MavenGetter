@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-cloc /Users/shimizu/MavenGetter/repos/input/$1 --exclude-lang="Markdown,AsciiDoc,XML,AutoHotkey,JSON,CSON,AMPLE,Ant,ANTLR Grammar,Arduino Sketch,Bazel,builder,CMake,diff,DOORS Extension Language,DTD,dtrace,FXML,Gradle,Groovy,HTML,INI,JSON5,JSP,make,Maven,Mojo,MXML,PO File,QML,RAML,Ruby HTML,SVG,TeX,TNSDL,YAML"
+cloc /Users/shimizu/MavenGetter/repos/$1 --exclude-lang="Markdown,AsciiDoc,XML,AutoHotkey,JSON,CSON,AMPLE,Ant,ANTLR Grammar,Arduino Sketch,Bazel,builder,CMake,diff,DOORS Extension Language,DTD,dtrace,FXML,Gradle,Groovy,HTML,INI,JSON5,JSP,make,Maven,Mojo,MXML,PO File,QML,RAML,Ruby HTML,SVG,TeX,TNSDL,YAML"

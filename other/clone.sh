@@ -1,0 +1,1 @@
+git clone http://github.com/$1.git repos/$1
