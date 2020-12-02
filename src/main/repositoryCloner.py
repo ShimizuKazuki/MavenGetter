@@ -11,9 +11,10 @@ repoDir= 'repos/'
 logging.basicConfig(level=logging.DEBUG)
 
 
-def getRepoName(since):
+def getRepoName(page):
     reponames = []
-    with urllib.request.urlopen("https://api.github.com/repositories?since=" + since) as response:
+    
+    with urllib.request.urlopen("https://api.github.com/search/repositories?q=language:Java&page=" + page) as response:
         with tempfile.NamedTemporaryFile(delete=True) as temp_file:
             shutil.copyfileobj(response, temp_file)
             with open(temp_file.name) as f:

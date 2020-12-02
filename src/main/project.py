@@ -2,7 +2,7 @@ import re
 import subprocess
 from concurrent.futures.thread import ThreadPoolExecutor
 import csv
-import time
+import times
 import pandas as pd
 import os
 import shutil
@@ -16,11 +16,11 @@ import functions
 logging.basicConfig(level=logging.DEBUG)
 
 def run(spamwriter):
-    since = "73199";
+    page = "2";
     while(True):
-        reponames_since = cloner.getRepoName(since)
-        since = reponames_since[1]
-        print(since)
+        reponames_since = cloner.getRepoName(page)
+        print("page : " + page)
+        page = str(int(page) + 1)
         g = Github()
         for reponame in reponames_since[0]:
             print(reponame)
@@ -43,7 +43,7 @@ def run(spamwriter):
 
 def main():
     try:
-        with open(f'outputs/projects.csv', 'a') as f:
+        with open('outputs/projects.csv', 'a') as f:
             spamwriter = csv.writer(f, delimiter=',', quotechar='|')
             run(spamwriter)
     except Exception as e:
