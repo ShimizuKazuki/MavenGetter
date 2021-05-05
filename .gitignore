@@ -2,6 +2,15 @@
 .vscode
 src/main/__pycache__/
 repos/input/
-venv/bin/
+outputs/
+src/main/category_only.py
+src/main/change.py
+src/main/graph.py
+src/main/category.py
+src/main/scores.py
+src/main/similarity.py
+src/main/scraping.py
+src/main/test.py
+mecab-ipadic-neologd/
 venv/*
-venv/
+repos/

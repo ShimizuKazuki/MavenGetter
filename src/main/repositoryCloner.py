@@ -6,27 +6,16 @@ import traceback
 import urllib.request, urllib.error
 import logging
 import subprocess
+import pandas as pd
 
-repoDir= 'repos/'
+repoDir = "repos/"
 logging.basicConfig(level=logging.DEBUG)
 
 
-def getRepoName(page):
-    reponames = []
+def getRepoName():
+    csv_input = pd.read_csv(filepath_or_buffer="input/project_list.csv", sep=",")
     
-    with urllib.request.urlopen("https://api.github.com/search/repositories?q=language:Java&page=" + page) as response:
-        with tempfile.NamedTemporaryFile(delete=True) as temp_file:
-            shutil.copyfileobj(response, temp_file)
-            with open(temp_file.name) as f:
-                content = f.read()
-                id = [s for s in content.split(',') if '{"id"' in s]
-                last_id = id[-1].split(":")[1].strip('"')
-                print(last_id)
-                full_names = [s for s in content.split(',') if "full_name" in s]
-                for full_name in full_names:
-                    reponame = full_name.split(":")[1].strip('"')
-                    reponames.append(reponame)
-    return reponames, last_id
+    return csv_input['name'].tolist()
 
 def cloneRepo(reponame):
     try: 

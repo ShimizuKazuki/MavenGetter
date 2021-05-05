@@ -2,7 +2,6 @@ import re
 import subprocess
 from concurrent.futures.thread import ThreadPoolExecutor
 import csv
-import times
 import pandas as pd
 import os
 import shutil
@@ -16,28 +15,25 @@ import functions
 logging.basicConfig(level=logging.DEBUG)
 
 def run(spamwriter):
-    page = "2";
     while(True):
-        reponames_since = cloner.getRepoName(page)
-        print("page : " + page)
-        page = str(int(page) + 1)
+        reponames = cloner.getRepoName()
         g = Github()
-        for reponame in reponames_since[0]:
-            print(reponame)
+        for reponame in reponames:
+            logging.info(reponame)
             out = []
             cloner.cloneRepo(reponame)
             if not os.path.exists(cloner.repoDir + reponame + "/pom.xml"):
                 logging.info(reponame + " is not Maven Project")
                 shutil.rmtree(cloner.repoDir + reponame.split('/')[0])
                 continue
-            repo = g.get_repo(reponame)
+            # repo = g.get_repo(reponame)
             out.append("https://github.com/" + reponame + " ")
-            logging.info(reponame + " #commit: " + functions.get_commit_count(repo))
-            out.append(functions.get_commit_count(repo))
-            logging.info(reponame + " #loc: " + functions.get_loc(reponame))
-            out.append(functions.get_loc(reponame))
-            logging.info(reponame + " #star: " + functions.get_star_count(repo))
-            out.append(functions.get_star_count(repo))
+            # logging.info(reponame + " #commit: " + functions.get_commit_count(repo))
+            # out.append(functions.get_commit_count(repo))
+            # logging.info(reponame + " #loc: " + functions.get_loc(reponame))
+            # out.append(functions.get_loc(reponame))
+            # logging.info(reponame + " #star: " + functions.get_star_count(repo))
+            # out.append(functions.get_star_count(repo))
             spamwriter.writerow(out)
             shutil.rmtree(cloner.repoDir + reponame.split('/')[0])
 
