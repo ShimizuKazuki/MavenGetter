@@ -26,6 +26,10 @@ def run(spamwriter):
                 logging.info(reponame + " is not Maven Project")
                 shutil.rmtree(cloner.repoDir + reponame.split('/')[0])
                 continue
+            elif not os.path.exists(cloner.repoDir + reponame + "/src/test/java/"):
+                logging.info(reponame + " doesn't have simple test code")
+                shutil.rmtree(cloner.repoDir + reponame.split('/')[0])
+                continue
             # repo = g.get_repo(reponame)
             out.append("https://github.com/" + reponame + " ")
             # logging.info(reponame + " #commit: " + functions.get_commit_count(repo))
